@@ -68,7 +68,7 @@ public class SignupActivity extends AppCompatActivity {
                                             // User is signed in, navigate to ProfileActivity
                                             Intent intent = new Intent(SignupActivity.this, ProfileActivity.class);
                                             startActivity(intent);
-                                            finish(); // Optional: Finish SignupActivity
+                                            finish();
                                         }
                                     } else {
                                         if (task.getException() instanceof FirebaseAuthUserCollisionException) {
@@ -111,7 +111,7 @@ public class SignupActivity extends AppCompatActivity {
         User user = new User(username,email);
         mDatabase.child(userId).setValue(user)
                 .addOnSuccessListener(aVoid -> {
-                    // Write was successful!
+                    // Write successful!
                     Log.d("SignupActivity", "User data written successfully for userId: " + userId);
                 })
                 .addOnFailureListener(e -> {

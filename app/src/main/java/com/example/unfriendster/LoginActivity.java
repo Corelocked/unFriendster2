@@ -29,13 +29,13 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_screen); // Your XML layout file
+        setContentView(R.layout.login_screen);
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
         // Initialize Firebase Realtime Database reference
-        mDatabase = FirebaseDatabase.getInstance().getReference("users"); // Replace "users" with your database node name
+        mDatabase = FirebaseDatabase.getInstance().getReference("users");
 
         usernameInput = findViewById(R.id.username_input);
         passwordInput = findViewById(R.id.password_input);
@@ -61,7 +61,6 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         }
 
-        // Add more validation checks as needed (e.g., password length)
         return true;
     }
 
@@ -71,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    // User found, iterate through results (there should ideally be only one)
+                    // User found, iterate through results
                     for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                         String email = userSnapshot.child("email").getValue(String.class);
                         if (email != null) {
@@ -86,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 // Navigate to ProfileActivity
                                                 Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
                                                 startActivity(intent);
-                                                finish(); // Optional: Finish LoginActivity
+                                                finish();
                                             } else {
                                                 // Login failed
                                                 String errorMessage = task.getException() != null ? task.getException().getMessage() : "Login failed";
