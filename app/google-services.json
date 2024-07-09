@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "358608942717",
+    "firebase_url": "https://unfriendster-92076-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "unfriendster-92076",
+    "storage_bucket": "unfriendster-92076.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:358608942717:android:0dfd125617f7f14b16a314",
+        "android_client_info": {
+          "package_name": "com.example.unfriendster"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAH1M2VdDiiMbW7bCVxSVFXPDtdUugNwE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
