@@ -9,12 +9,12 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-public class ProfileActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profile_page);
+        setContentView(R.layout.home_page);;
 
         Button notificationButton = findViewById(R.id.notification_btn);
         Button profileButton = findViewById(R.id.profile_btn);
@@ -23,7 +23,7 @@ public class ProfileActivity extends AppCompatActivity {
         notificationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ProfileActivity.this, NotificationActivity.class);
+                Intent intent = new Intent(HomeActivity.this, NotificationActivity.class);
                 startActivity(intent);
             }
         });
@@ -31,7 +31,7 @@ public class ProfileActivity extends AppCompatActivity {
         profileButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                Intent intent = new Intent(ProfileActivity.this, ProfileActivity.class);
+                Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
                 startActivity(intent);
             }
         });
@@ -39,7 +39,7 @@ public class ProfileActivity extends AppCompatActivity {
         homeButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                Intent intent = new Intent(ProfileActivity.this, HomeActivity.class);
+                Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
         });
