@@ -1,6 +1,8 @@
 package com.example.unfriendster;
 
-public class User {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class User extends AppCompatActivity {
     public String username;
     public String email;
 
