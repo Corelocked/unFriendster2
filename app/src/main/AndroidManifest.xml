@@ -36,6 +36,9 @@
             android:exported="true"/>
         <activity android:name=".MyApplication"
             android:exported="true"/>
+        <activity android:name=".SettingsActivity"
+            android:exported="true"/>
+
     </application>
 
 </manifest>

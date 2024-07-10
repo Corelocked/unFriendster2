@@ -20,6 +20,8 @@ public class NotificationActivity extends AppCompatActivity {
         Button notificationButton = findViewById(R.id.notification_btn);
         Button profileButton = findViewById(R.id.profile_btn);
         Button homeButton = findViewById(R.id.home_btn);
+        Button settingsButton = findViewById(R.id.settings_btn);
+        Button logoButton = findViewById(R.id.logo_btn);
 
         notificationButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,5 +47,21 @@ public class NotificationActivity extends AppCompatActivity {
             }
         });
 
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                Intent intent = new Intent(NotificationActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        logoButton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                Intent intent = new Intent(NotificationActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
     }
+
 }
