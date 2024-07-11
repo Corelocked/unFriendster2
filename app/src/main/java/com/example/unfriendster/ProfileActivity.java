@@ -30,7 +30,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profile_page); // Replace with your actual layout file name
+        setContentView(R.layout.profile_page);
 
         Button notificationButton = findViewById(R.id.notification_btn);
         Button profileButton = findViewById(R.id.profile_btn);
@@ -64,8 +64,7 @@ public class ProfileActivity extends AppCompatActivity {
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // You might want to handle this differently since you're already on the ProfileActivity
-                // Maybe refresh the profile data?
+
                 loadAndDisplayProfileData(); // Refresh profile data
             }
         });

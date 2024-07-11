@@ -31,4 +31,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.893" />
+
+    <TextView
+        android:id="@+id/name_txt"
+        android:layout_width="204dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="44dp"
+        app:layout_constraintBottom_toTopOf="@+id/space6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.399"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.056" />
+
+    <TextView
+        android:id="@+id/username_txt"
+        android:layout_width="250dp"
+        android:layout_height="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="200dp" />
+
+    <TextView
+        android:id="@+id/email_txt"
+        android:layout_width="250dp"
+        android:layout_height="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="257dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -107,7 +107,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void writeNewUser(String userId, String username, String email, String password) {
-        Log.d("SignupActivity", "Writing new user to database");
+        Log.d("SignupActivity", "Attempting to write new user to database"); // Add this line
         User user = new User(username,email,password);
         mDatabase.child(userId).setValue(user)
                 .addOnSuccessListener(aVoid -> {

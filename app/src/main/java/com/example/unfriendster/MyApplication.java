@@ -8,7 +8,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://unfriendster-92076-default-rtdb.asia-southeast1.firebasedatabase.app");
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://unfriendster-92076-default-rtdb.asia-southeast1.firebasedatabase.app/");
         FirebaseApp.initializeApp(this);
 
     }

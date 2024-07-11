@@ -2,11 +2,12 @@ package com.example.unfriendster;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class User extends AppCompatActivity {
+public class User {
     public String username;
     public String email;
     public String password;
 
+    // No-argument constructor required by Firebase
     public User() {
     }
 
@@ -15,7 +16,6 @@ public class User extends AppCompatActivity {
         this.email = email;
         this.password = password;
     }
-
 
     public String getUsername() {
         return username;
@@ -33,9 +33,11 @@ public class User extends AppCompatActivity {
         this.email = email;
     }
 
-    public String getPassword(){return password;}
+    public String getPassword() {
+        return password;
+    }
 
-    public void setPassword(String password){this.password = password;}
-
-
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
