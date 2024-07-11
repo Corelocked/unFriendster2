@@ -7,7 +7,6 @@ public class User {
     public String email;
     public String password;
 
-    // No-argument constructor required by Firebase
     public User() {
     }
 
