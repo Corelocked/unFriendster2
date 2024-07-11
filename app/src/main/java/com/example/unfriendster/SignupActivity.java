@@ -63,7 +63,7 @@ public class SignupActivity extends AppCompatActivity {
                                         FirebaseUser user = mAuth.getCurrentUser();
                                         if (user != null) {
                                             // Write user data to Realtime Database
-                                            writeNewUser(user.getUid(), username, email);
+                                            writeNewUser(user.getUid(), username, email, password);
 
                                             // User is signed in, navigate to ProfileActivity
                                             Intent intent = new Intent(SignupActivity.this, ProfileActivity.class);
@@ -106,9 +106,9 @@ public class SignupActivity extends AppCompatActivity {
         return true;
     }
 
-    private void writeNewUser(String userId, String username, String email) {
+    private void writeNewUser(String userId, String username, String email, String password) {
         Log.d("SignupActivity", "Writing new user to database");
-        User user = new User(username,email);
+        User user = new User(username,email,password);
         mDatabase.child(userId).setValue(user)
                 .addOnSuccessListener(aVoid -> {
                     // Write successful!
