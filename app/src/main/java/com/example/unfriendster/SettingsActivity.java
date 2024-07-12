@@ -7,7 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.widget.ImageView;
+import com.bumptech.glide.Glide;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    private ImageView profileImageView;
     private TextView nameTextView, usernameTextView, emailTextView;
     private FirebaseUser user;
     private DatabaseReference reference;
@@ -32,6 +34,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_page);
 
+        profileImageView = findViewById(R.id.profile_image_view);
         Button signoutButton = findViewById(R.id.signout_btn);
         Button backButton = findViewById(R.id.back_btn);
         nameTextView = findViewById(R.id.name_txt);
@@ -62,6 +65,8 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        loadProfileImage();
+
         signoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,6 +90,23 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+    }
+    private void loadProfileImage() {
+        reference.child(userID).child("profileImageUrl").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String imageUrl = snapshot.getValue(String.class);
+                    Glide.with(SettingsActivity.this)
+                            .load(imageUrl)
+                            .into(profileImageView);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {Toast.makeText(SettingsActivity.this, "Failed to load profile image.", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -36,8 +36,12 @@ dependencies {
 
 
 
-    implementation(platform("com.google.firebase:firebase-bom:33.1.1"))
-    implementation("com.google.firebase:firebase-analytics")
+    implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
+    implementation(libs.firebase.analytics)
+    implementation (libs.firebase.storage)
+    implementation (libs.imagepicker)
+    implementation (libs.glide)
+    annotationProcessor (libs.compiler)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

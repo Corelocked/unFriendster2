@@ -31,10 +31,7 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_screen);
 
-        // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-
-        // Initialize Firebase Realtime Database reference
         mDatabase = FirebaseDatabase.getInstance().getReference("users");
 
         usernameInput = findViewById(R.id.username_input);
@@ -50,32 +47,30 @@ public class SignupActivity extends AppCompatActivity {
                 String password = passwordInput.getText().toString();
 
                 if (validateInput(username, email, password)) {
-                    // Create user with Firebase Authentication
+
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        // Signup success
+
                                         Toast.makeText(SignupActivity.this, "Signup successful!", Toast.LENGTH_SHORT).show();
 
-                                        // Automatically sign in the user
                                         FirebaseUser user = mAuth.getCurrentUser();
                                         if (user != null) {
-                                            // Write user data to Realtime Database
+
                                             writeNewUser(user.getUid(), username, email, password);
 
-                                            // User is signed in, navigate to ProfileActivity
                                             Intent intent = new Intent(SignupActivity.this, ProfileActivity.class);
                                             startActivity(intent);
                                             finish();
                                         }
                                     } else {
                                         if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                            // Email already in use
+
                                             Toast.makeText(SignupActivity.this, "This email is already registered. Try logging in or use a different email.", Toast.LENGTH_SHORT).show();
                                         } else {
-                                            // Other signup errors
+
                                             String errorMessage= task.getException() != null ? task.getException().getMessage() : "Signup failed";
                                             Toast.makeText(SignupActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                                         }
@@ -111,11 +106,11 @@ public class SignupActivity extends AppCompatActivity {
         User user = new User(username,email,password);
         mDatabase.child(userId).setValue(user)
                 .addOnSuccessListener(aVoid -> {
-                    // Write successful!
+
                     Log.d("SignupActivity", "User data written successfully for userId: " + userId);
                 })
                 .addOnFailureListener(e -> {
-                    // Handle error
+
                     Log.e("SignupActivity", "Failed to write user data for userId: " + userId, e);
                     Toast.makeText(SignupActivity.this, "Failed to save data. Please try again later.", Toast.LENGTH_SHORT).show();
                 });

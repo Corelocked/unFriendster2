@@ -1,13 +1,14 @@
 package com.example.unfriendster;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app. AppCompatActivity;
 
-public class User {
-    public String username;
-    public String email;
-    public String password;
+    public class User {
 
+    private String username;
+    private String email;
+    private String password;
 
+    // Empty constructor required for Firebase
     public User() {
     }
 
@@ -40,5 +41,4 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
 }
