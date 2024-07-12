@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import java.util.ArrayList;
+import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,6 +24,16 @@ public class HomeActivity extends AppCompatActivity {
         Button homeButton = findViewById(R.id.home_btn);
         Button settingsButton = findViewById(R.id.settings_btn);
         Button logoButton = findViewById(R.id.logo_btn);
+
+        RecyclerView postRecyclerView = findViewById(R.id.postRecyclerView);
+        postRecyclerView.setLayoutManager(new LinearLayoutManager(this)); // Set layout manager
+
+        List<Post> posts = new ArrayList<>();
+        posts.add(new Post("First Post", "This is the content...", "https://example.com/image1.jpg"));
+        posts.add(new Post("Second Post", "Content of the second post goes here.","https://example.com/image1.jpg"));
+
+        PostAdapter adapter = new PostAdapter(posts);
+        postRecyclerView.setAdapter(adapter);
 
         notificationButton.setOnClickListener(new View.OnClickListener() {
             @Override

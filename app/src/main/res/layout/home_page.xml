@@ -8,7 +8,7 @@
 
     <Button
         android:id="@+id/home_btn"
-        android:layout_width="50dp"
+        android:layout_width="60dp"
         android:layout_height="50dp"
         android:layout_weight="1"
         android:background="@drawable/homebtn"
@@ -121,15 +121,33 @@
         app:layout_constraintVertical_bias="0.196" />
 
     <ScrollView
+        android:id="@+id/scrollView4"
         android:layout_width="match_parent"
-        android:layout_height="577dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/space3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/space7"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/space7">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/postRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/space3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/space7" />
     </ScrollView>
+
+    <Button
+        android:id="@+id/newpost_btn"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/notification_btn"
+        app:layout_constraintStart_toEndOf="@+id/discover"
+        app:layout_constraintTop_toTopOf="@+id/space3" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

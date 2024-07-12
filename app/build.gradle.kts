@@ -37,6 +37,7 @@ dependencies {
 
 
     implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
+    implementation (libs.circleimageview)
     implementation(libs.firebase.analytics)
     implementation (libs.firebase.storage)
     implementation (libs.imagepicker)
