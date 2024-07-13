@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.database.DataSnapshot;import com.google.firebase.database.DatabaseError;
@@ -37,6 +40,7 @@ public class HomeActivity extends AppCompatActivity {
 
         RecyclerView postRecyclerView = findViewById(R.id.postRecyclerView);
         postRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        postRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         // Set layout manager
 
         posts = new ArrayList<>();
@@ -44,12 +48,9 @@ public class HomeActivity extends AppCompatActivity {
         fetchPostsFromFirebase();
         postRecyclerView.setAdapter(adapter);
 
-        newpost_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, CreatePostActivity.class);
-                startActivity(intent);
-            }
+        newpost_btn.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeActivity.this, CreatePostActivity.class);
+            startActivity(intent);
         });
 
         notificationButton.setOnClickListener(new View.OnClickListener() {
@@ -97,20 +98,22 @@ public class HomeActivity extends AppCompatActivity {
         postsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                posts.clear(); // Clear existing posts
+                posts.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Post post = postSnapshot.getValue(Post.class);
-                    if (post != null) { // Check for null posts
+                    if (post != null) {
                         posts.add(post);
                         Log.d("HomeActivity", "Fetched Post: " + post.getTitle());
                     }
                 }
-                adapter.notifyDataSetChanged(); // Update the adapter
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle errors, e.g., log the error
+                Log.e("HomeActivity", "Error fetching posts: ", databaseError.toException());
+                Toast.makeText(HomeActivity.this, "Failed to load posts", Toast.LENGTH_SHORT).show();
+                // Or show a Snackbar, a dialog, or implement a retry mechanism
             }
         });
     }

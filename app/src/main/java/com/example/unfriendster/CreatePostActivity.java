@@ -10,12 +10,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public class CreatePostActivity extends AppCompatActivity{
 
@@ -71,7 +75,7 @@ public class CreatePostActivity extends AppCompatActivity{
                                         @Override
                                         public void onSuccess(Uri uri) {
                                             newPost.setPhotoUrl(uri.toString());
-                                            // Save post to Realtime Database
+                                            // Save postto Realtime Database
                                             postsRef.child(postId).setValue(newPost)
                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
@@ -79,18 +83,29 @@ public class CreatePostActivity extends AppCompatActivity{
                                                             Log.d("CreatePostActivity", "Post with image saved successfully");
                                                             finish();
                                                         }
+                                                    })
+                                                    .addOnFailureListener(new OnFailureListener() { // Add error handling here
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Log.e("CreatePostActivity", "Error saving post with image", e);
+                                                            // Handle the error appropriately (e.g., show a message to the user)
+                                                        }
                                                     });
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() { // Add error handling here as well
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.e("CreatePostActivity", "Error getting download URL", e);
+                                            // Handle the error appropriately
                                         }
                                     });
                                 }
-                            });
-                } else { // This 'else' block should be outside the 'addOnSuccessListener'
-                    // Save post without image
-                    postsRef.child(postId).setValue(newPost)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            })
+                            .addOnFailureListener(new OnFailureListener() { // Add error handling for image upload
                                 @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d("CreatePostActivity", "Post without image saved successfully");finish();
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.e("CreatePostActivity", "Error uploading image", e);
+                                    // Handle the error appropriately
                                 }
                             });
                 }

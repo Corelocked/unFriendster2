@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,22 +6,32 @@
     android:padding="16dp">
 
     <EditText
+        android:id="@+id/postAuthorNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your name"
+        android:textColor="@android:color/white"
+        android:textColorHint="@color/black"
+        android:textSize="18sp" />
+
+    <EditText
         android:id="@+id/postTitleEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColorHint="@color/black"
+        android:layout_marginTop="8dp"
         android:hint="Enter post title"
         android:textColor="@android:color/white"
+        android:textColorHint="@color/black"
         android:textSize="18sp" />
 
     <EditText
         android:id="@+id/postContentEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColorHint="@color/black"
         android:layout_marginTop="8dp"
         android:hint="Enter post content"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:textColorHint="@color/black" />
 
     <ImageView
         android:id="@+id/postImagePreview"

@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.unfriendster.databinding.PostItemBinding;
+
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
@@ -21,49 +23,67 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     }
 
     static class PostViewHolder extends RecyclerView.ViewHolder {
-        TextView titleTextView;
-        TextView contentTextView;
-        ImageView postImageView; // If you added this for images
+        private final PostItemBinding binding;
 
-        PostViewHolder(View itemView) {
-            super(itemView);
-            titleTextView = itemView.findViewById(R.id.postTitleTextView); // Make sure this ID matches your layout
-            contentTextView = itemView.findViewById(R.id.postContentTextView); // Make sure this ID matches your layout
-            postImageView = itemView.findViewById(R.id.postImageView); // If you have an ImageView for images
+        PostViewHolder(PostItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 
     @NonNull
     @Override
     public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.post_item, parent, false); // Use your post item layout
-        return new PostViewHolder(itemView);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        PostItemBinding binding = PostItemBinding.inflate(inflater, parent, false);
+        return new PostViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         Post currentPost = posts.get(position);
-        holder.titleTextView.setText(currentPost.getTitle());
-        holder.contentTextView.setText(currentPost.getContent());
+        holder.binding.postTitleTextView.setText(currentPost.getTitle());
+        holder.binding.postContentTextView.setText(currentPost.getContent());
 
-        // Load image using Glide (or Picasso)
+        // Load image using Glide
         String photoUrl = currentPost.getPhotoUrl();
         if (photoUrl != null && !photoUrl.isEmpty()) {
             Glide.with(holder.itemView.getContext())
                     .load(photoUrl)
-                    .into(holder.postImageView);
-        }else {
-            // Handle cases where there's no image URL (e.g., set a placeholder image)
-            // Glide.with(holder.itemView.getContext()).load(R.drawable.placeholder).into(holder.postImageView);
+                    .placeholder(R.drawable.blankpfp)
+                    .error(R.drawable.blankpfp) // Replace with your actual error image
+                    .into(holder.binding.postImageView);
+        } else {
+            // Handle cases where there's no image URL
             Glide.with(holder.itemView.getContext())
-                    .load(R.drawable.blankpfp) // Replace 'placeholder_image' with your actual drawable resource
-                    .into(holder.postImageView);
-
+                    .load(R.drawable.blankpfp) // Replace with your placeholder image
+                    .into(holder.binding.postImageView);
         }
+
+        // Set click listener for the item
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                int pos = holder.getAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION) {
+                    listener.onItemClick(posts.get(pos));
+                }
+            }
+        });
     }
     @Override
     public int getItemCount() {
         return posts.size();
     }
+
+    public interface OnItemClickListener {
+        void onItemClick(Post post);
+    }
+
+    // In your PostAdapter
+    private OnItemClickListener listener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
 }
