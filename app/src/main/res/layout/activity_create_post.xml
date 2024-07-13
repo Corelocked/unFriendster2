@@ -10,6 +10,7 @@
         android:id="@+id/postTitleEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColorHint="@color/black"
         android:hint="Enter post title"
         android:textColor="@android:color/white"
         android:textSize="18sp" />
@@ -18,6 +19,7 @@
         android:id="@+id/postContentEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColorHint="@color/black"
         android:layout_marginTop="8dp"
         android:hint="Enter post content"
         android:textColor="@android:color/white" />

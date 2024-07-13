@@ -21,7 +21,7 @@ import java.util.List;
 public class HomeActivity extends AppCompatActivity {
 
     private PostAdapter adapter;
-    private List<Post> posts = new ArrayList<>();
+    public List<Post> posts = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +39,10 @@ public class HomeActivity extends AppCompatActivity {
         postRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         // Set layout manager
 
-        List<Post> posts = new ArrayList<>(); // This creates a new local 'posts' list
-        posts.add(new Post());
-        posts.add(new Post());
+        posts = new ArrayList<>();
         adapter = new PostAdapter(posts); // You're passing the local list to the adapter
-        postRecyclerView.setAdapter(adapter);
-
         fetchPostsFromFirebase();
+        postRecyclerView.setAdapter(adapter);
 
         newpost_btn.setOnClickListener(new View.OnClickListener() {
             @Override

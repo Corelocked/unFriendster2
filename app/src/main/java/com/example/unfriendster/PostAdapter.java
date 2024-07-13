@@ -10,13 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-
-import java.text.CollationElementIterator;
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
 
-    private List<Post> posts;
+    private final List<Post> posts;
 
     public PostAdapter(List<Post> posts) {
         this.posts = posts;
@@ -58,6 +56,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         }else {
             // Handle cases where there's no image URL (e.g., set a placeholder image)
             // Glide.with(holder.itemView.getContext()).load(R.drawable.placeholder).into(holder.postImageView);
+            Glide.with(holder.itemView.getContext())
+                    .load(R.drawable.blankpfp) // Replace 'placeholder_image' with your actual drawable resource
+                    .into(holder.postImageView);
 
         }
     }
