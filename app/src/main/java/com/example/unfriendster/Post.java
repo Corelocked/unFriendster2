@@ -3,16 +3,13 @@ package com.example.unfriendster;
 public class Post {
     private String title;
     private String content;
-    private String photoUrl; // Add this field
+    private String photoUrl;
 
-    public Post(String title, String content, String photoUrl) {
-        this.title = title;
-        this.content = content;
-        this.photoUrl = photoUrl;
+    // No-argument constructor required for Firebase deserialization
+    public Post() {// Leave this empty
     }
 
     public String getTitle() {
-
         return title;
     }
 
@@ -25,6 +22,14 @@ public class Post {
     }
 
     public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
+        this.photoUrl = photoUrl; // Assign the value here
+    }
+
+    public void setTitle(String title) {
+        this.title = title; // Assign the value here
+    }
+
+    public void setContent(String content) {
+        this.content = content; // Assign the value here
     }
 }

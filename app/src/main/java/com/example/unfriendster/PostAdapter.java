@@ -50,11 +50,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         holder.contentTextView.setText(currentPost.getContent());
 
         // Load image using Glide (or Picasso)
-        Glide.with(holder.itemView.getContext())
-                .load(currentPost.getPhotoUrl())
-                .into(holder.postImageView);
-    }
+        String photoUrl = currentPost.getPhotoUrl();
+        if (photoUrl != null && !photoUrl.isEmpty()) {
+            Glide.with(holder.itemView.getContext())
+                    .load(photoUrl)
+                    .into(holder.postImageView);
+        }else {
+            // Handle cases where there's no image URL (e.g., set a placeholder image)
+            // Glide.with(holder.itemView.getContext()).load(R.drawable.placeholder).into(holder.postImageView);
 
+        }
+    }
     @Override
     public int getItemCount() {
         return posts.size();
