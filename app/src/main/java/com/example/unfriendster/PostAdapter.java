@@ -1,10 +1,8 @@
 package com.example.unfriendster;
 
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,13 +11,16 @@ import com.bumptech.glide.Glide;
 import com.example.unfriendster.databinding.PostItemBinding;
 
 import java.util.List;
+import java.util.Map;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
 
     private final List<Post> posts;
+    private final Map<String, HomeActivity.AuthorDetails> authorDetailsMap;
 
-    public PostAdapter(List<Post> posts) {
+    public PostAdapter(List<Post> posts, Map<String, HomeActivity.AuthorDetails> authorDetailsMap) {
         this.posts = posts;
+        this.authorDetailsMap = authorDetailsMap;
     }
 
     static class PostViewHolder extends RecyclerView.ViewHolder {
@@ -45,22 +46,46 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         holder.binding.postTitleTextView.setText(currentPost.getTitle());
         holder.binding.postContentTextView.setText(currentPost.getContent());
 
-        // Load image using Glide
+        // Load post image using Glide
         String photoUrl = currentPost.getPhotoUrl();
         if (photoUrl != null && !photoUrl.isEmpty()) {
             Glide.with(holder.itemView.getContext())
                     .load(photoUrl)
                     .placeholder(R.drawable.blankpfp)
-                    .error(R.drawable.blankpfp) // Replace with your actual error image
+                    .error(R.drawable.blankpfp)
+                    .fallback(R.drawable.blankpfp)
                     .into(holder.binding.postImageView);
         } else {
-            // Handle cases where there's no image URL
             Glide.with(holder.itemView.getContext())
-                    .load(R.drawable.blankpfp) // Replace with your placeholder image
+                    .load(R.drawable.blankpfp)
                     .into(holder.binding.postImageView);
         }
 
-        // Set click listener for the item
+        // Fetch Author Details (Optimized)
+        String authorUid = currentPost.getAuthorUid();
+        if (authorUid != null) {
+            HomeActivity.AuthorDetails authorDetails = authorDetailsMap.get(authorUid);
+            if (authorDetails != null) {
+                // Use author details from the map
+                holder.binding.postAuthorNameTextView.setText(authorDetails.name);
+                holder.binding.postAuthorUsernameTextView.setText(authorDetails.username);
+
+                Glide.with(holder.itemView.getContext())
+                        .load(authorDetails.profileImageUrl)
+                        .placeholder(R.drawable.blankpfp)
+                        .error(R.drawable.blankpfp)
+                        .into(holder.binding.profileImageView);
+            } else {
+                // Handle the case where author details are not yet available
+                holder.binding.postAuthorNameTextView.setText("Loading...");
+                holder.binding.postAuthorUsernameTextView.setText("");
+                Glide.with(holder.itemView.getContext())
+                        .load(R.drawable.blankpfp)
+                        .into(holder.binding.profileImageView);
+            }
+        }
+
+        // Set click listener (adapt as needed)
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
                 int pos = holder.getAdapterPosition();
@@ -70,8 +95,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             }
         });
     }
+
     @Override
     public int getItemCount() {
+        Log.d("PostAdapter", "getItemCount: " + posts.size());
         return posts.size();
     }
 
@@ -79,11 +106,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         void onItemClick(Post post);
     }
 
-    // In your PostAdapter
     private OnItemClickListener listener;
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
-
 }

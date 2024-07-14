@@ -10,8 +10,7 @@ public class Post {
     private String authorProfilePictureUrl;
     private String authorName;
     private String authorUsername;
-    private Timestamp timestamp; // Add timestamp field
-
+    private Timestamp timestamp;
     // No-argument constructor for Firebase
     public Post() {
         // Leave this empty
@@ -50,13 +49,17 @@ public class Post {
         return timestamp;
     }
 
-    // Setters
+    // Setters with data validation
     public void setTitle(String title) {
-        this.title = title;
+        if (title != null && !title.isEmpty()) {
+            this.title = title;
+        }
     }
 
     public void setContent(String content) {
-        this.content = content;
+        if (content != null && !content.isEmpty()) {
+            this.content = content;
+        }
     }
 
     public void setPhotoUrl(String photoUrl) {
@@ -82,4 +85,19 @@ public class Post {
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
+
+
+
+
+    // toString() method for better representation
+    @Override
+    public String toString() {
+        return "Post{" +
+                "title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", authorName='" + authorName + '\'' +
+                // ... other fields
+                '}';
+    }
+
 }
